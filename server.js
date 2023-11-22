@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-import path from "path";
+const path= require("path");
 import { fileURLToPath } from "url";
 
 dotenv.config();
@@ -14,8 +14,8 @@ const blogRoutes = require("./routes/blogRoutes");
 
 connectDB();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, "./client/build")));
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/blog", blogRoutes);
 
-app.use("*", function (req, res) {
+app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
